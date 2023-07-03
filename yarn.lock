@@ -1967,6 +1967,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/country-list@^2.1.1":
+  "integrity" "sha512-maNkQzgLbyoi5mwwAL0KCb6l5/rn02N9y/CIBf4AYPrJ0pU2AvUTQ5LOw6GA4AAPrtiL44LWiwXzybUAUUYA3Q=="
+  "resolved" "https://registry.npmjs.org/@types/country-list/-/country-list-2.1.1.tgz"
+  "version" "2.1.1"
+
 "@types/eslint-scope@^3.7.3":
   "integrity" "sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA=="
   "resolved" "https://registry.npmjs.org/@types/eslint-scope/-/eslint-scope-3.7.4.tgz"
@@ -3425,6 +3430,11 @@
     "parse-json" "^5.0.0"
     "path-type" "^4.0.0"
     "yaml" "^1.10.0"
+
+"country-list@^2.3.0":
+  "integrity" "sha512-qZk66RlmQm7fQjMYWku1AyjlKPogjPEorAZJG88owPExoPV8EsyCcuFLvO2afTXHEhi9liVOoyd+5A6ZS5QwaA=="
+  "resolved" "https://registry.npmjs.org/country-list/-/country-list-2.3.0.tgz"
+  "version" "2.3.0"
 
 "cross-spawn@^7.0.2", "cross-spawn@^7.0.3":
   "integrity" "sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w=="

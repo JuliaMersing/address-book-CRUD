@@ -2,8 +2,8 @@ import React from 'react';
 
 interface HeaderProps {
 	heading: string;
-	href: string;
-	linkParagraph: string;
+	href?: string;
+	linkParagraph?: string;
 }
 
 export const Header: React.FunctionComponent<HeaderProps> = ({
