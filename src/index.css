@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .heading {
+      @apply mt-3 text-center text-3xl tracking-tight font-bold text-gray-900;
+  }
+  .link {
+      @apply font-medium text-indigo-600 hover:text-indigo-500 ml-2;
+  }
+
+}
