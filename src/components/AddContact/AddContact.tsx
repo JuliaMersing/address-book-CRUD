@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import countryList from 'country-list';
 import { Header } from '../Header/Header';
-import { Contact } from '../Contact/type';
+import { Contact } from '../ContactList/type';
+import { Button } from '../Button/Button';
+import { Input } from '../Input/Input';
+import {
+	verifyCountry,
+	verifyEmail,
+	verifyFirstName,
+	verifyLastName,
+} from '../utils/validations';
 
 interface AddContactProps {
 	onBackButton: () => void;
@@ -12,92 +20,139 @@ export const AddContact: React.FC<AddContactProps> = ({
 	onBackButton,
 	onSubmitForm,
 }) => {
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [email, setEmail] = useState('');
-	const [country, setCountry] = useState('');
+	const [formData, setFormData] = useState<Contact>({
+		id: '',
+		firstName: '',
+		lastName: '',
+		email: '',
+		countryCode: '',
+	});
 
-	const handleChangeFirstName = (event: any) => {
-		setFirstName(event.target.value);
+	const [formErrors, setFormErrors] = useState<{
+		firstName: string;
+		lastName: string;
+		email: string;
+		country: string;
+	}>({
+		firstName: '',
+		lastName: '',
+		email: '',
+		country: 'Select Country',
+	});
+
+	const handleChange = (event: any) => {
+		const { name, value } = event.target;
+		setFormData((prevData) => ({
+			...prevData,
+			[name]: value,
+		}));
+		setFormErrors((prevErrors) => ({
+			...prevErrors,
+			[name]: '',
+		}));
 	};
 
-	const handleChangeLastName = (event: any) => {
-		setLastName(event.target.value);
+	const handleBlur = (event: any) => {
+		const { name, value } = event.target;
+		let error = '';
+
+		switch (name) {
+			case 'firstName':
+				error = verifyFirstName(value);
+				break;
+			case 'lastName':
+				error = verifyLastName(value);
+				break;
+			case 'email':
+				error = verifyEmail(value);
+				break;
+			case 'country':
+				error = verifyCountry(value);
+				break;
+			default:
+				break;
+		}
+
+		setFormErrors((prevErrors) => ({
+			...prevErrors,
+			[name]: error,
+		}));
 	};
 
-	const handleChangeEmail = (event: any) => {
-		setEmail(event.target.value);
-	};
-
-	const handleChangeCountry = (event: any) => {
-		setCountry(event.target.value);
-	};
-
-	const onSubmitContact = (event: any) => {
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+
 		const data: Contact = {
+			...formData,
 			id: new Date().toJSON().toString(),
-			firstName: firstName,
-			lastName: lastName,
-			email: email,
-			countryCode: country,
 		};
 		onSubmitForm(data);
 		onBackButton();
 	};
 
+	const countryOptions = countryList.getData().map((country) => (
+		<option key={country.code} value={country.name}>
+			{country.name}
+		</option>
+	));
+
 	return (
-		<div>
-			<Header
-				heading="Add new contact"
-				href="/"
-				linkParagraph="Go back to address book"
-			/>
-			<form onSubmit={onSubmitContact}>
-				<div>
-					<label htmlFor="firstName">First Name:</label>
-					<input
+		<div className="flex items-center justify-center min-h-screen">
+			<div className="px-8 py-6 text-left bg-indigo-100 shadow-lg rounded-xl">
+				<Header
+					heading="Add new contact"
+					href="/"
+					linkParagraph="Go back to address book"
+				/>
+				<form onSubmit={handleSubmit}>
+					<Input
 						type="text"
-						value={firstName}
+						name="firstName"
+						value={formData.firstName}
 						placeholder="First Name"
-						onChange={handleChangeFirstName}
+						onChange={handleChange}
+						onBlur={handleBlur}
+						error={formErrors.firstName}
+						className={formErrors.firstName !== '' ? 'input-error' : 'input'}
 					/>
-				</div>
-				<div>
-					<label htmlFor="lastName">Last Name:</label>
-					<input
+
+					<Input
 						type="text"
-						value={lastName}
+						name="lastName"
+						value={formData.lastName}
 						placeholder="Last Name"
-						onChange={handleChangeLastName}
+						onChange={handleChange}
+						onBlur={handleBlur}
+						error={formErrors.lastName}
+						className={formErrors.lastName !== '' ? 'input-error' : 'input'}
 					/>
-				</div>
-				<div>
-					<label htmlFor="email">Email:</label>
-					<input
+
+					<Input
 						type="email"
-						value={email}
+						name="email"
+						value={formData.email}
 						placeholder="Email"
-						onChange={handleChangeEmail}
+						onChange={handleChange}
+						onBlur={handleBlur}
+						error={formErrors.email}
+						className={formErrors.email !== '' ? 'input-error' : 'input'}
 					/>
-				</div>
-				<div>
-					<label htmlFor="countryCode">Country:</label>
-					<select
-						id="countryCode"
-						value={country}
-						onChange={handleChangeCountry}
-					>
-						<option value="">Select country</option>
-						{countryList.getData().map((country) => (
-							<option key={country.code} value={country.code}>
-								{country.name}
-							</option>
-						))}
-					</select>
-				</div>
-				<button type="submit">Add contact</button>
-			</form>
+
+					<Input
+						id="country"
+						type="text"
+						name="country"
+						value={formData.countryCode}
+						onChange={handleChange}
+						onBlur={handleBlur}
+						options={countryOptions}
+						placeholder="Select Country"
+						error={formErrors.country}
+						className={formErrors.country !== '' ? 'input-error' : 'input'}
+					/>
+					<Button>Add Contact</Button>
+				</form>
+			</div>
 		</div>
 	);
 };

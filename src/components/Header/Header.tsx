@@ -12,8 +12,13 @@ export const Header: React.FunctionComponent<HeaderProps> = ({
 	linkParagraph,
 }) => (
 	<>
-		<h2 className="heading">{heading}</h2>
-		<a href={href} className="link">
+		<h2 className="text-center text-indigo-600 text-4xl font-bold">
+			{heading}
+		</h2>
+		<a
+			href={href}
+			className="font-medium text-indigo-600 hover:text-indigo-500 ml-2"
+		>
 			{linkParagraph}
 		</a>
 	</>

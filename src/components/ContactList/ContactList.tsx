@@ -1,6 +1,8 @@
 import React from 'react';
 import countryList from 'country-list';
-import { Contact } from '../Contact/type';
+import { Contact } from './type';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 interface ContactListProps {
 	contactsList: Contact[];
@@ -14,48 +16,58 @@ export const ContactList: React.FC<ContactListProps> = ({
 	onEdit,
 }) => {
 	return (
-		<table className="w-full border">
-			<thead>
-				<tr>
-					<th className="py-2 px-4 border-b">First Name</th>
-					<th className="py-2 px-4 border-b">Last Name</th>
-					<th className="py-2 px-4 border-b">Email</th>
-					<th className="py-2 px-4 border-b">Country</th>
-					<th className="py-2 px-4 border-b">Manage Contact</th>
-				</tr>
-			</thead>
-			<tbody>
-				{contactsList.map((contact: Contact, index: number) => {
-					return (
-						<tr key={index}>
-							<td className="py-2 px-4 border-b">{contact.firstName}</td>
-							<td className="py-2 px-4 border-b">{contact.lastName}</td>
-							<td className="py-2 px-4 border-b">{contact.email}</td>
-							<td className="py-2 px-4 border-b">
-								<select
-									value={contact.countryCode}
-									onChange={(e) => {
-										const updatedContacts = [...contactsList];
-										updatedContacts[index].countryCode = e.target.value;
-									}}
-								>
-									{countryList.getData().map((country) => (
-										<option key={country.code} value={country.code}>
-											{country.name}
-										</option>
-									))}
-								</select>
-							</td>
-							<td className="py-2 px-4 border-b">
-								<div className="space-x-4">
-									<button onClick={() => onEdit(contact)}>Edit</button>
-									<button onClick={() => onDelete(contact)}>Delete</button>
-								</div>
-							</td>
-						</tr>
-					);
-				})}
-			</tbody>
-		</table>
+		<div className="flex justify-center">
+			<table className="w-full max-w-screen-lg my-8">
+				<thead>
+					<tr className="border-b">
+						<th className="py-2 px-4">First Name</th>
+						<th className="py-2 px-4">Last Name</th>
+						<th className="py-2 px-4">Email</th>
+						<th className="py-2 px-4">Country</th>
+						<th className="py-2 px-4">Manage Contact</th>
+					</tr>
+				</thead>
+				<tbody>
+					{contactsList.map((contact: Contact, index: number) => {
+						return (
+							<tr key={index} className="border-b">
+								<td className="py-2 px-4">{contact.firstName}</td>
+								<td className="py-2 px-4">{contact.lastName}</td>
+								<td className="py-2 px-4">{contact.email}</td>
+								<td className="py-2 px-4">
+									<select
+										value={contact.countryCode}
+										onChange={(e) => {
+											const updatedContacts = [...contactsList];
+											updatedContacts[index].countryCode = e.target.value;
+										}}
+									>
+										{countryList.getData().map((country) => (
+											<option key={country.code} value={country.code}>
+												{country.name}
+											</option>
+										))}
+									</select>
+								</td>
+								<td className="py-2 px-4 border-b">
+									<div className="space-x-4">
+										<FontAwesomeIcon
+											icon={faEdit}
+											className="action-icon edit-icon text-indigo-600"
+											onClick={() => onEdit(contact)}
+										/>
+										<FontAwesomeIcon
+											icon={faTrash}
+											className="action-icon delete-icon text-indigo-600"
+											onClick={() => onDelete(contact)}
+										/>
+									</div>
+								</td>
+							</tr>
+						);
+					})}
+				</tbody>
+			</table>
+		</div>
 	);
 };

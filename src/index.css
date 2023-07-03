@@ -3,11 +3,13 @@
 @tailwind utilities;
 
 @layer components {
-  .heading {
-      @apply mt-3 text-center text-3xl tracking-tight font-bold text-gray-900;
+  .container-form {
+    @apply flex items-center justify-center min-h-screen;
   }
-  .link {
-      @apply font-medium text-indigo-600 hover:text-indigo-500 ml-2;
+  .container-header {
+    @apply px-8 py-6 text-left bg-indigo-100 shadow-lg rounded-xl;
   }
-
+  .button-container {
+    @apply inline-block px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 mx-auto;
+  }
 }

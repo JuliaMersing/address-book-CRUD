@@ -1,4 +1,4 @@
-# Card Game
+# Address Book
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -36,3 +36,11 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `Address book`
+
+Functionality
+There should be one view where all contacts are listed.
+There should be another view to add, delete and edit contacts.
+The data should be persisted (on the client), and loaded again when the application starts.
+Add fitting validation to the different input fields.

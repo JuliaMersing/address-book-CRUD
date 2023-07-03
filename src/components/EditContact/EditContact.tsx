@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Contact } from '../Contact/type';
+import { Contact } from '../ContactList/type';
 import { Header } from '../Header/Header';
 import countryList from 'country-list';
 
