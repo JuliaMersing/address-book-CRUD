@@ -49,7 +49,7 @@ export const EditContact: React.FunctionComponent<EditContactProps> = ({
 			firstName,
 			lastName,
 			email,
-			countryCode: country,
+			countryCode: country, // Fix typo: countryCode instead of country
 		};
 
 		onEditContact(updatedData);
@@ -95,16 +95,15 @@ export const EditContact: React.FunctionComponent<EditContactProps> = ({
 						onChange={handleChange}
 						className="input"
 					/>
-					<Input
+					<select
 						id="country"
-						type="text"
 						name="country"
 						value={country}
 						onChange={handleChange}
-						options={countryOptions}
-						placeholder="Select Country"
 						className="input"
-					/>
+					>
+						{countryOptions}
+					</select>
 					<Button>Update contact</Button>
 				</form>
 			</div>

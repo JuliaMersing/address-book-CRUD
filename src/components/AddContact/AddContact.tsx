@@ -10,7 +10,8 @@ import {
 	verifyFirstName,
 	verifyLastName,
 } from '../utils/validations';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 interface AddContactProps {
 	onBackButton: () => void;
 	onSubmitForm: (data: Contact) => void;
@@ -33,11 +34,13 @@ export const AddContact: React.FC<AddContactProps> = ({
 		lastName: string;
 		email: string;
 		country: string;
+		validationMessage: string;
 	}>({
 		firstName: '',
 		lastName: '',
 		email: '',
 		country: '',
+		validationMessage: '',
 	});
 
 	const handleChange = (event: any) => {
@@ -66,7 +69,7 @@ export const AddContact: React.FC<AddContactProps> = ({
 			case 'email':
 				error = verifyEmail(value);
 				break;
-			case 'country':
+			case 'countryCode':
 				error = verifyCountry(value);
 				break;
 			default:
@@ -79,15 +82,21 @@ export const AddContact: React.FC<AddContactProps> = ({
 		}));
 	};
 
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
 
-		const data: Contact = {
-			...formData,
-			id: new Date().toJSON().toString(),
-		};
-		onSubmitForm(data);
-		onBackButton();
+		if (Object.values(formErrors).every((error) => error === '')) {
+			const data: Contact = {
+				...formData,
+				id: new Date().toJSON().toString(),
+			};
+			onSubmitForm(data);
+			onBackButton();
+		} else {
+			toast.error('Please fill in all the required fields.', {
+				position: toast.POSITION.TOP_CENTER,
+			});
+		}
 	};
 
 	const countryOptions = countryList.getData().map((country) => (
@@ -99,6 +108,7 @@ export const AddContact: React.FC<AddContactProps> = ({
 	return (
 		<div className="container-app">
 			<div className="container-form">
+				<ToastContainer />
 				<Header
 					heading="Add new contact"
 					href="/"
@@ -138,9 +148,9 @@ export const AddContact: React.FC<AddContactProps> = ({
 						className={formErrors.email !== '' ? 'input-error' : 'input'}
 					/>
 					<Input
-						id="country"
+						id="countryCode"
 						type="text"
-						name="country"
+						name="countryCode"
 						value={formData.countryCode}
 						onChange={handleChange}
 						onBlur={handleBlur}

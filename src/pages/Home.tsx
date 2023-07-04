@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Header } from '../components/Header/Header';
 import {
 	Contact,
 	PageEnum,
@@ -8,14 +7,13 @@ import {
 import { ContactList } from '../components/ContactList/ContactList';
 import { AddContact } from '../components/AddContact/AddContact';
 import { EditContact } from '../components/EditContact/EditContact';
-import { Button } from '../components/Button/Button';
 
 export const Home: React.FunctionComponent = () => {
 	const [contactList, setContactList] = useState(initialContact as Contact[]);
 	const [shownPage, setShownPage] = useState(PageEnum.isHomePage);
 	const [contactToEdit, setContactToEdit] = useState({} as Contact);
 
-	const onGoFormHandler = () => {
+	const onAddContact = () => {
 		setShownPage(PageEnum.isAddContactPage);
 	};
 
@@ -49,15 +47,12 @@ export const Home: React.FunctionComponent = () => {
 	return (
 		<div>
 			{shownPage === PageEnum.isHomePage && (
-				<>
-					<Header heading="Contacts" />
-					<Button onClick={onGoFormHandler}>Add contact</Button>
-					<ContactList
-						contactsList={contactList}
-						onDelete={onDeleteContact}
-						onEdit={onEditContact}
-					/>
-				</>
+				<ContactList
+					contactsList={contactList}
+					onDelete={onDeleteContact}
+					onEdit={onEditContact}
+					onAdd={onAddContact}
+				/>
 			)}
 
 			{shownPage === PageEnum.isAddContactPage && (
