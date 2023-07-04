@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Contact } from '../ContactList/type';
 import { Header } from '../Header/Header';
+import { Input } from '../Input/Input';
+import { Button } from '../Button/Button';
 import countryList from 'country-list';
 
 interface EditContactProps {
@@ -19,87 +21,93 @@ export const EditContact: React.FunctionComponent<EditContactProps> = ({
 	const [email, setEmail] = useState(data.email);
 	const [country, setCountry] = useState(data.countryCode);
 
-	const handleChangeFirstName = (event: any) => {
-		setFirstName(event.target.value);
+	const handleChange = (event: any) => {
+		const { name, value } = event.target;
+		switch (name) {
+			case 'firstName':
+				setFirstName(value);
+				break;
+			case 'lastName':
+				setLastName(value);
+				break;
+			case 'email':
+				setEmail(value);
+				break;
+			case 'country':
+				setCountry(value);
+				break;
+			default:
+				break;
+		}
 	};
 
-	const handleChangeLastName = (event: any) => {
-		setLastName(event.target.value);
-	};
-
-	const handleChangeEmail = (event: any) => {
-		setEmail(event.target.value);
-	};
-
-	const handleChangeCountry = (event: any) => {
-		setCountry(event.target.value);
-	};
-
-	const onSubmitContact = (event: any) => {
+	const onSubmitContact = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+
 		const updatedData: Contact = {
 			id: data.id,
-			firstName: firstName,
-			lastName: lastName,
-			email: email,
+			firstName,
+			lastName,
+			email,
 			countryCode: country,
 		};
+
 		onEditContact(updatedData);
 		onBackButton();
 	};
 
+	const countryOptions = countryList.getData().map((country) => (
+		<option key={country.code} value={country.code}>
+			{country.name}
+		</option>
+	));
+
 	return (
-		<div>
-			<Header
-				heading="Edit contact"
-				href="/"
-				linkParagraph="Go back to address book"
-			/>
-			<form onSubmit={onSubmitContact}>
-				<div>
-					<label htmlFor="firstName">First Name:</label>
-					<input
+		<div className="container-app">
+			<div className="container-form">
+				<Header
+					heading="Edit contact"
+					href="/"
+					linkParagraph="Go back to address book"
+				/>
+				<form onSubmit={onSubmitContact}>
+					<Input
 						type="text"
+						name="firstName"
 						value={firstName}
 						placeholder="First Name"
-						onChange={handleChangeFirstName}
+						onChange={handleChange}
+						className="input"
 					/>
-				</div>
-				<div>
-					<label htmlFor="lastName">Last Name:</label>
-					<input
+					<Input
 						type="text"
+						name="lastName"
 						value={lastName}
 						placeholder="Last Name"
-						onChange={handleChangeLastName}
+						onChange={handleChange}
+						className="input"
 					/>
-				</div>
-				<div>
-					<label htmlFor="email">Email:</label>
-					<input
+					<Input
 						type="email"
+						name="email"
 						value={email}
 						placeholder="Email"
-						onChange={handleChangeEmail}
+						onChange={handleChange}
+						className="input"
 					/>
-				</div>
-				<div>
-					<label htmlFor="countryCode">Country:</label>
-					<select
-						id="countryCode"
+					<Input
+						id="country"
+						type="text"
+						name="country"
 						value={country}
-						onChange={handleChangeCountry}
-					>
-						<option value="">Select country</option>
-						{countryList.getData().map((country) => (
-							<option key={country.code} value={country.code}>
-								{country.name}
-							</option>
-						))}
-					</select>
-				</div>
-				<button type="submit">Update contact</button>
-			</form>
+						onChange={handleChange}
+						options={countryOptions}
+						placeholder="Select Country"
+						className="input"
+					/>
+					<Button>Update contact</Button>
+				</form>
+			</div>
 		</div>
 	);
 };

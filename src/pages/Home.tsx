@@ -48,9 +48,9 @@ export const Home: React.FunctionComponent = () => {
 
 	return (
 		<div>
-			<Header heading="Contacts" />
 			{shownPage === PageEnum.isHomePage && (
 				<>
+					<Header heading="Contacts" />
 					<Button onClick={onGoFormHandler}>Add contact</Button>
 					<ContactList
 						contactsList={contactList}

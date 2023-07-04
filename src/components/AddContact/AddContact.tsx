@@ -37,7 +37,7 @@ export const AddContact: React.FC<AddContactProps> = ({
 		firstName: '',
 		lastName: '',
 		email: '',
-		country: 'Select Country',
+		country: '',
 	});
 
 	const handleChange = (event: any) => {
@@ -91,14 +91,14 @@ export const AddContact: React.FC<AddContactProps> = ({
 	};
 
 	const countryOptions = countryList.getData().map((country) => (
-		<option key={country.code} value={country.name}>
+		<option key={country.code} value={country.code}>
 			{country.name}
 		</option>
 	));
 
 	return (
-		<div className="flex items-center justify-center min-h-screen">
-			<div className="px-8 py-6 text-left bg-indigo-100 shadow-lg rounded-xl">
+		<div className="container-app">
+			<div className="container-form">
 				<Header
 					heading="Add new contact"
 					href="/"
@@ -137,7 +137,6 @@ export const AddContact: React.FC<AddContactProps> = ({
 						error={formErrors.email}
 						className={formErrors.email !== '' ? 'input-error' : 'input'}
 					/>
-
 					<Input
 						id="country"
 						type="text"
