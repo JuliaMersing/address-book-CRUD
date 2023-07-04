@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Contact } from '../ContactList/type';
+import { Contact } from '../type/type';
 import { Header } from '../Header/Header';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
@@ -49,7 +49,7 @@ export const EditContact: React.FunctionComponent<EditContactProps> = ({
 			firstName,
 			lastName,
 			email,
-			countryCode: country, // Fix typo: countryCode instead of country
+			countryCode: country,
 		};
 
 		onEditContact(updatedData);

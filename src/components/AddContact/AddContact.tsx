@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import countryList from 'country-list';
 import { Header } from '../Header/Header';
-import { Contact } from '../ContactList/type';
+import { Contact } from '../type/type';
 import { Button } from '../Button/Button';
 import { Input } from '../Input/Input';
 import {

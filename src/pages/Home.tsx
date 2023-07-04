@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import {
-	Contact,
-	PageEnum,
-	initialContact,
-} from '../components/ContactList/type';
+import { Contact, PageEnum, initialContact } from '../components/type/type';
 import { ContactList } from '../components/ContactList/ContactList';
 import { AddContact } from '../components/AddContact/AddContact';
 import { EditContact } from '../components/EditContact/EditContact';
