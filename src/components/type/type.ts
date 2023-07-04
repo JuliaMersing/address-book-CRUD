@@ -9,10 +9,10 @@ export interface Contact {
 export const initialContact: Contact[] = [
 	{
 		id: new Date().toJSON().toString(),
-		firstName: 'Celia',
-		lastName: 'Cruz',
+		firstName: 'Katrín',
+		lastName: 'Jakobsdóttir',
 		email: 'azucar@me.com',
-		countryCode: 'Cuba',
+		countryCode: 'IS',
 	},
 ];
 

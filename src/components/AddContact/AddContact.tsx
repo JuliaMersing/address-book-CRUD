@@ -125,7 +125,6 @@ export const AddContact: React.FC<AddContactProps> = ({
 						error={formErrors.firstName}
 						className={formErrors.firstName !== '' ? 'input-error' : 'input'}
 					/>
-
 					<Input
 						type="text"
 						name="lastName"
@@ -136,7 +135,6 @@ export const AddContact: React.FC<AddContactProps> = ({
 						error={formErrors.lastName}
 						className={formErrors.lastName !== '' ? 'input-error' : 'input'}
 					/>
-
 					<Input
 						type="email"
 						name="email"

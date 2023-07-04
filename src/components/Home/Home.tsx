@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
-import { Contact, PageEnum, initialContact } from '../components/type/type';
-import { ContactList } from '../components/ContactList/ContactList';
-import { AddContact } from '../components/AddContact/AddContact';
-import { EditContact } from '../components/EditContact/EditContact';
+import { Contact, PageEnum, initialContact } from '../type/type';
+import { ContactList } from '../ContactList/ContactList';
+import { AddContact } from '../AddContact/AddContact';
+import { EditContact } from '../EditContact/EditContact';
 
 export const Home: React.FunctionComponent = () => {
 	const [contactList, setContactList] = useState(initialContact as Contact[]);
 	const [shownPage, setShownPage] = useState(PageEnum.isHomePage);
 	const [contactToEdit, setContactToEdit] = useState({} as Contact);
 
-	const onAddContact = () => {
+	const handleGoAddContact = () => {
 		setShownPage(PageEnum.isAddContactPage);
 	};
 
-	const onGoToHomePage = () => {
+	const handleGoHome = () => {
 		setShownPage(PageEnum.isHomePage);
 	};
 
-	const onAddContactHandler = (data: Contact) => {
+	const handleAddContact = (data: Contact) => {
 		setContactList([...contactList, data]);
 		setShownPage(PageEnum.isHomePage);
 	};
 
-	const onDeleteContact = (data: Contact) => {
+	const handleDeleteContact = (data: Contact) => {
 		const newList = contactList.filter((contact) => contact.id !== data.id);
 		setContactList(newList);
 	};
 
-	const onEditContact = (data: Contact) => {
+	const handleEditContact = (data: Contact) => {
 		setShownPage(PageEnum.isEditContactPage);
 		setContactToEdit(data);
 	};
@@ -37,7 +37,7 @@ export const Home: React.FunctionComponent = () => {
 			contact.id === data.id ? data : contact
 		);
 		setContactList(updatedContactList);
-		onGoToHomePage();
+		handleGoHome();
 	};
 
 	return (
@@ -45,23 +45,23 @@ export const Home: React.FunctionComponent = () => {
 			{shownPage === PageEnum.isHomePage && (
 				<ContactList
 					contactsList={contactList}
-					onDelete={onDeleteContact}
-					onEdit={onEditContact}
-					onAdd={onAddContact}
+					onDelete={handleDeleteContact}
+					onEdit={handleEditContact}
+					onAdd={handleGoAddContact}
 				/>
 			)}
 
 			{shownPage === PageEnum.isAddContactPage && (
 				<AddContact
-					onSubmitForm={onAddContactHandler}
-					onBackButton={onGoToHomePage}
+					onSubmitForm={handleAddContact}
+					onBackButton={handleGoHome}
 				/>
 			)}
 
 			{shownPage === PageEnum.isEditContactPage && (
 				<EditContact
 					data={contactToEdit}
-					onBackButton={onGoToHomePage}
+					onBackButton={handleGoHome}
 					onEditContact={updateContact}
 				/>
 			)}
