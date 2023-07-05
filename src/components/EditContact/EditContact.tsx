@@ -7,13 +7,11 @@ import countryList from 'country-list';
 
 interface EditContactProps {
 	data: Contact;
-	onBackButton: () => void;
 	onEditContact: (data: Contact) => void;
 }
 
 export const EditContact: React.FunctionComponent<EditContactProps> = ({
 	data,
-	onBackButton,
 	onEditContact,
 }) => {
 	const [firstName, setFirstName] = useState(data.firstName);
@@ -53,7 +51,6 @@ export const EditContact: React.FunctionComponent<EditContactProps> = ({
 		};
 
 		onEditContact(updatedData);
-		onBackButton();
 	};
 
 	const countryOptions = countryList.getData().map((country) => (

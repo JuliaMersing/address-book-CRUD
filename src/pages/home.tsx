@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Contact, PageEnum } from '../type/type';
-import { ContactList } from '../ContactList/ContactList';
-import { AddContact } from '../AddContact/AddContact';
-import { EditContact } from '../EditContact/EditContact';
-import { get, set } from '../services/localStorage';
+import { Contact } from '../components/type/type';
+import { get, set } from '../components/services/localStorage';
+import { ContactList } from '../components/ContactList/ContactList';
+import { EditContact } from '../components/EditContact/EditContact';
 
 export const Home: React.FunctionComponent = () => {
 	const [contactList, setContactList] = useState([] as Contact[]);
-	const [shownPage, setShownPage] = useState(PageEnum.isHomePage);
 	const [contactToEdit, setContactToEdit] = useState({} as Contact);
+	const [isHomePage, setIsHomePage] = useState(true);
 
 	useEffect(() => {
 		const contactStored = get('UpdateContactList', '[]');
@@ -22,26 +21,13 @@ export const Home: React.FunctionComponent = () => {
 		set('UpdateContactList', JSON.stringify(listStorage));
 	};
 
-	const handleGoAddContact = () => {
-		setShownPage(PageEnum.isAddContactPage);
-	};
-
-	const handleGoHome = () => {
-		setShownPage(PageEnum.isHomePage);
-	};
-
-	const handleAddContact = (data: Contact) => {
-		storedContacts([...contactList, data]);
-		setShownPage(PageEnum.isHomePage);
-	};
-
 	const handleDeleteContact = (data: Contact) => {
 		const newList = contactList.filter((contact) => contact.id !== data.id);
 		storedContacts(newList);
 	};
 
 	const handleEditContact = (data: Contact) => {
-		setShownPage(PageEnum.isEditContactPage);
+		setIsHomePage(false);
 		setContactToEdit(data);
 	};
 
@@ -50,34 +36,20 @@ export const Home: React.FunctionComponent = () => {
 			contact.id === data.id ? data : contact
 		);
 		storedContacts(updatedContactList);
-		handleGoHome();
+		setIsHomePage(true);
 	};
 
 	return (
-		<div>
-			{shownPage === PageEnum.isHomePage && (
+		<>
+			{isHomePage ? (
 				<ContactList
 					contactsList={contactList}
 					onDelete={handleDeleteContact}
 					onEdit={handleEditContact}
-					onAdd={handleGoAddContact}
 				/>
+			) : (
+				<EditContact data={contactToEdit} onEditContact={updateContact} />
 			)}
-
-			{shownPage === PageEnum.isAddContactPage && (
-				<AddContact
-					onSubmitForm={handleAddContact}
-					onBackButton={handleGoHome}
-				/>
-			)}
-
-			{shownPage === PageEnum.isEditContactPage && (
-				<EditContact
-					data={contactToEdit}
-					onBackButton={handleGoHome}
-					onEditContact={updateContact}
-				/>
-			)}
-		</div>
+		</>
 	);
 };

@@ -13,14 +13,10 @@ import {
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 interface AddContactProps {
-	onBackButton: () => void;
 	onSubmitForm: (data: Contact) => void;
 }
 
-export const AddContact: React.FC<AddContactProps> = ({
-	onBackButton,
-	onSubmitForm,
-}) => {
+export const AddContact: React.FC<AddContactProps> = ({ onSubmitForm }) => {
 	const [formData, setFormData] = useState<Contact>({
 		id: '',
 		firstName: '',
@@ -99,7 +95,6 @@ export const AddContact: React.FC<AddContactProps> = ({
 				id: new Date().toJSON().toString(),
 			};
 			onSubmitForm(data);
-			onBackButton();
 		} else {
 			toast.error('Please fill in all the required fields.', {
 				position: toast.POSITION.TOP_CENTER,
