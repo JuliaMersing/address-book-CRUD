@@ -55,37 +55,45 @@ export const AddContact: React.FC<AddContactProps> = ({
 		}));
 	};
 
-	const handleBlur = (event: any) => {
-		const { name, value } = event.target;
-		let error = '';
-
-		switch (name) {
-			case 'firstName':
-				error = verifyFirstName(value);
-				break;
-			case 'lastName':
-				error = verifyLastName(value);
-				break;
-			case 'email':
-				error = verifyEmail(value);
-				break;
-			case 'countryCode':
-				error = verifyCountry(value);
-				break;
-			default:
-				break;
-		}
-
-		setFormErrors((prevErrors) => ({
-			...prevErrors,
-			[name]: error,
-		}));
-	};
-
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
 
-		if (Object.values(formErrors).every((error) => error === '')) {
+		let errors = {};
+
+		Object.keys(formData).forEach((fieldName) => {
+			let error = '';
+
+			switch (fieldName) {
+				case 'firstName':
+					error = verifyFirstName(formData.firstName);
+					break;
+				case 'lastName':
+					error = verifyLastName(formData.lastName);
+					break;
+				case 'email':
+					error = verifyEmail(formData.email);
+					break;
+				case 'countryCode':
+					error = verifyCountry(formData.countryCode);
+					break;
+				default:
+					break;
+			}
+
+			if (error !== '') {
+				errors = {
+					...errors,
+					[fieldName]: error,
+				};
+			}
+		});
+
+		setFormErrors({
+			...formErrors,
+			...errors,
+		});
+
+		if (Object.keys(errors).length === 0) {
 			const data: Contact = {
 				...formData,
 				id: new Date().toJSON().toString(),
@@ -99,11 +107,16 @@ export const AddContact: React.FC<AddContactProps> = ({
 		}
 	};
 
-	const countryOptions = countryList.getData().map((country) => (
-		<option key={country.code} value={country.code}>
-			{country.name}
-		</option>
-	));
+	const countryOptions = [
+		<option key="select" value="">
+			Select a country
+		</option>,
+		...countryList.getData().map((country) => (
+			<option key={country.code} value={country.code}>
+				{country.name}
+			</option>
+		)),
+	];
 
 	return (
 		<div className="container-app">
@@ -121,7 +134,6 @@ export const AddContact: React.FC<AddContactProps> = ({
 						value={formData.firstName}
 						placeholder="First Name"
 						onChange={handleChange}
-						onBlur={handleBlur}
 						error={formErrors.firstName}
 						className={formErrors.firstName !== '' ? 'input-error' : 'input'}
 					/>
@@ -131,7 +143,6 @@ export const AddContact: React.FC<AddContactProps> = ({
 						value={formData.lastName}
 						placeholder="Last Name"
 						onChange={handleChange}
-						onBlur={handleBlur}
 						error={formErrors.lastName}
 						className={formErrors.lastName !== '' ? 'input-error' : 'input'}
 					/>
@@ -141,7 +152,6 @@ export const AddContact: React.FC<AddContactProps> = ({
 						value={formData.email}
 						placeholder="Email"
 						onChange={handleChange}
-						onBlur={handleBlur}
 						error={formErrors.email}
 						className={formErrors.email !== '' ? 'input-error' : 'input'}
 					/>
@@ -151,7 +161,6 @@ export const AddContact: React.FC<AddContactProps> = ({
 						name="countryCode"
 						value={formData.countryCode}
 						onChange={handleChange}
-						onBlur={handleBlur}
 						options={countryOptions}
 						placeholder="Select Country"
 						error={formErrors.country}

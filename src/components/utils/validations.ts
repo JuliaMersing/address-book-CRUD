@@ -15,7 +15,7 @@ export const verifyLastName = (lastName: string): string => {
 	return '';
 };
 
-export const verifyCountry = (country: string): string => {
-	if (country === 'Select Country') return 'This field is required';
+export const verifyCountry = (countryCode: string): string => {
+	if (countryCode === '') return 'This field is required';
 	return '';
 };

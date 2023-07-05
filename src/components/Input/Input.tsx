@@ -5,7 +5,6 @@ export interface InputProps {
 	type?: string;
 	value: string;
 	onChange: (e: FormEvent) => void;
-	onBlur?: (e: FormEvent) => void;
 	placeholder: string;
 	error?: string;
 	className?: string;
@@ -18,7 +17,6 @@ export const Input: React.FC<InputProps> = ({
 	type,
 	value,
 	onChange,
-	onBlur,
 	placeholder,
 	error,
 	className,
@@ -31,7 +29,6 @@ export const Input: React.FC<InputProps> = ({
 				id={id}
 				value={value}
 				onChange={onChange}
-				onBlur={onBlur}
 				className={className}
 				name={name}
 			>
@@ -43,7 +40,6 @@ export const Input: React.FC<InputProps> = ({
 				type={type}
 				value={value}
 				onChange={onChange}
-				onBlur={onBlur}
 				className={className}
 				placeholder={placeholder}
 				name={name}

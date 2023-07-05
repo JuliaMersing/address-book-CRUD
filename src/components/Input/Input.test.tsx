@@ -7,7 +7,6 @@ import { Input } from './Input';
 describe('Input component', () => {
 	const setUp = () => {
 		const mockHandleOnChange = jest.fn();
-		const mockHandleBlur = jest.fn();
 		const mockCountryOptions = [
 			<option key="1" value="USA">
 				USA
@@ -22,7 +21,6 @@ describe('Input component', () => {
 					value=""
 					placeholder="Email"
 					onChange={mockHandleOnChange}
-					onBlur={mockHandleBlur}
 					error=""
 					className="input"
 				/>
@@ -32,7 +30,6 @@ describe('Input component', () => {
 					value=""
 					placeholder="Last Name"
 					onChange={mockHandleOnChange}
-					onBlur={mockHandleBlur}
 					error=""
 					className="input"
 				/>
@@ -41,7 +38,6 @@ describe('Input component', () => {
 					type="text"
 					value=""
 					onChange={mockHandleOnChange}
-					onBlur={mockHandleBlur}
 					options={mockCountryOptions}
 					error=""
 					placeholder="Select Country"
@@ -50,7 +46,6 @@ describe('Input component', () => {
 		);
 		return {
 			...utils,
-			mockHandleBlur,
 			mockHandleOnChange,
 			mockCountryOptions,
 		};
@@ -63,17 +58,5 @@ describe('Input component', () => {
 		await userEvent.type(input, email);
 
 		expect(mockHandleOnChange).toHaveBeenCalled();
-	});
-
-	test('call handleBlur when email is not valid', async () => {
-		const { mockHandleOnChange, mockHandleBlur } = setUp();
-
-		const email = 'test.com';
-		const input = screen.getByPlaceholderText('Email');
-		await userEvent.type(input, email);
-
-		expect(mockHandleOnChange).toHaveBeenCalled();
-		await userEvent.tab();
-		expect(mockHandleBlur).toHaveBeenCalled();
 	});
 });
