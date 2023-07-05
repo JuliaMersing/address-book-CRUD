@@ -5,9 +5,3 @@ export interface Contact {
 	email: string;
 	countryCode: string;
 }
-
-export enum PageEnum {
-	isHomePage,
-	isAddContactPage,
-	isEditContactPage,
-}

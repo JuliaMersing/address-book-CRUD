@@ -40,7 +40,10 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `Address book`
 
 Functionality
-There should be one view where all contacts are listed.
-There should be another view to add, delete and edit contacts.
-The data should be persisted (on the client), and loaded again when the application starts.
-Add fitting validation to the different input fields.
+
+- Contact List View: Display a list of all contacts.
+- Add Contact View: Provide a form to add a new contact.
+- Delete Contact: Allow users to delete contacts from the list.
+- Edit Contact: Enable editing of existing contacts.
+- Data Persistence: Save contact data on the client-side (using local storage) so that it can be loaded again when the application restarts.
+- Input Field Validation: Implement validation for different input fields to ensure that the data entered by the user meets specific requirements or constraints.

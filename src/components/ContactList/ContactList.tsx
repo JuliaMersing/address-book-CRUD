@@ -29,7 +29,7 @@ export const ContactList: React.FC<ContactListProps> = ({
 					Add contact
 				</Link>
 			</div>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+			<div className="container-card-list">
 				{contactsList.map((contact: Contact, index: number) => (
 					<CardContact
 						key={index}

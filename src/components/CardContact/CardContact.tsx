@@ -18,7 +18,7 @@ export const CardContact: React.FC<CardContactProps> = ({
 	const country = countryList.getName(data.countryCode);
 
 	return (
-		<div className="container-contact bg-white border-indigo-600 border-2 rounded-md p-4 mb-4">
+		<div className="contained-card">
 			<h2 className="input text-lg font-bold mb-2">
 				{data.firstName} {data.lastName}
 			</h2>

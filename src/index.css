@@ -15,6 +15,13 @@
   .container-contact {
     @apply my-4 py-4 px-4 border border-gray-300 rounded-md;
   }
+  .contained-card{
+    @apply my-4 py-4 px-4 border border-gray-300 rounded-md bg-white;
+  }
+.container-card-list{
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4;
+}
+
   .heading {
     @apply text-center text-indigo-600 text-4xl font-bold mb-8;
   }
