@@ -6,16 +6,6 @@ export interface Contact {
 	countryCode: string;
 }
 
-export const initialContact: Contact[] = [
-	{
-		id: new Date().toJSON().toString(),
-		firstName: 'Katrín',
-		lastName: 'Jakobsdóttir',
-		email: 'azucar@me.com',
-		countryCode: 'IS',
-	},
-];
-
 export enum PageEnum {
 	isHomePage,
 	isAddContactPage,

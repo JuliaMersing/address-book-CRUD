@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
-import { Contact, PageEnum, initialContact } from '../type/type';
+import React, { useEffect, useState } from 'react';
+import { Contact, PageEnum } from '../type/type';
 import { ContactList } from '../ContactList/ContactList';
 import { AddContact } from '../AddContact/AddContact';
 import { EditContact } from '../EditContact/EditContact';
+import { get, set } from '../services/localStorage';
 
 export const Home: React.FunctionComponent = () => {
-	const [contactList, setContactList] = useState(initialContact as Contact[]);
+	const [contactList, setContactList] = useState([] as Contact[]);
 	const [shownPage, setShownPage] = useState(PageEnum.isHomePage);
 	const [contactToEdit, setContactToEdit] = useState({} as Contact);
+
+	useEffect(() => {
+		const contactStored = get('UpdateContactList', '[]');
+		if (contactStored) {
+			storedContacts(JSON.parse(contactStored));
+		}
+	}, []);
+
+	const storedContacts = (listStorage: Contact[]) => {
+		setContactList(listStorage);
+		set('UpdateContactList', JSON.stringify(listStorage));
+	};
 
 	const handleGoAddContact = () => {
 		setShownPage(PageEnum.isAddContactPage);
@@ -18,13 +31,13 @@ export const Home: React.FunctionComponent = () => {
 	};
 
 	const handleAddContact = (data: Contact) => {
-		setContactList([...contactList, data]);
+		storedContacts([...contactList, data]);
 		setShownPage(PageEnum.isHomePage);
 	};
 
 	const handleDeleteContact = (data: Contact) => {
 		const newList = contactList.filter((contact) => contact.id !== data.id);
-		setContactList(newList);
+		storedContacts(newList);
 	};
 
 	const handleEditContact = (data: Contact) => {
@@ -36,7 +49,7 @@ export const Home: React.FunctionComponent = () => {
 		const updatedContactList = contactList.map((contact) =>
 			contact.id === data.id ? data : contact
 		);
-		setContactList(updatedContactList);
+		storedContacts(updatedContactList);
 		handleGoHome();
 	};
 
