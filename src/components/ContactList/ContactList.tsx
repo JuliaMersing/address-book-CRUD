@@ -8,16 +8,10 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface ContactListProps {
 	contactsList: Contact[];
-	onDelete: (data: Contact) => void;
-	onEdit: (data: Contact) => void;
 	onAdd?: () => void;
 }
 
-export const ContactList: React.FC<ContactListProps> = ({
-	contactsList,
-	onDelete,
-	onEdit,
-}) => (
+export const ContactList: React.FC<ContactListProps> = ({ contactsList }) => (
 	<div className="container-app">
 		<div className="container-form">
 			<Header heading="Address Book" />
@@ -31,12 +25,7 @@ export const ContactList: React.FC<ContactListProps> = ({
 			</div>
 			<div className="container-card-list">
 				{contactsList.map((contact: Contact, index: number) => (
-					<CardContact
-						key={index}
-						data={contact}
-						onEdit={onEdit}
-						onDelete={onDelete}
-					/>
+					<CardContact key={index} data={contact} />
 				))}
 			</div>
 		</div>

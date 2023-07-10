@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Contact } from '../type/type';
 import { Header } from '../Header/Header';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
 import countryList from 'country-list';
+import { useNavigate } from 'react-router-dom';
 
 interface EditContactProps {
 	data: Contact;
@@ -14,10 +15,22 @@ export const EditContact: React.FunctionComponent<EditContactProps> = ({
 	data,
 	onEditContact,
 }) => {
-	const [firstName, setFirstName] = useState(data.firstName);
-	const [lastName, setLastName] = useState(data.lastName);
-	const [email, setEmail] = useState(data.email);
-	const [country, setCountry] = useState(data.countryCode);
+	const [firstName, setFirstName] = useState(data?.firstName);
+	const [lastName, setLastName] = useState(data?.lastName);
+	const [email, setEmail] = useState(data?.email);
+	const [country, setCountry] = useState(data?.countryCode);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (Object.keys(data)) {
+			setFirstName(data.firstName);
+			setLastName(data.lastName);
+			setEmail(data.email);
+			setCountry(data.countryCode);
+		}
+	}, [data]);
+
+	console.log('data', data);
 
 	const handleChange = (event: any) => {
 		const { name, value } = event.target;
@@ -49,8 +62,9 @@ export const EditContact: React.FunctionComponent<EditContactProps> = ({
 			email,
 			countryCode: country,
 		};
-
 		onEditContact(updatedData);
+		//meter setTimeOut
+		navigate('/');
 	};
 
 	const countryOptions = countryList.getData().map((country) => (
@@ -59,6 +73,7 @@ export const EditContact: React.FunctionComponent<EditContactProps> = ({
 		</option>
 	));
 
+	console.log('firstName', firstName);
 	return (
 		<div className="container-app">
 			<div className="container-form">
