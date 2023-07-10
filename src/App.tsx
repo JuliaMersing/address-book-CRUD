@@ -7,7 +7,7 @@ export const App: React.FunctionComponent = () => {
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Home />} />
-				<Route path="/add" element={<Add onAddContact={() => {}} />} />
+				<Route path="/add" element={<Add />} />
 			</Routes>
 		</BrowserRouter>
 	);
