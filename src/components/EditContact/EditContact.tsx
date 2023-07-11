@@ -11,7 +11,7 @@ interface EditContactProps {
 	onEditContact: (data: Contact) => void;
 }
 
-export const EditContact: React.FunctionComponent<EditContactProps> = ({
+export const EditContact: React.FC<EditContactProps> = ({
 	data,
 	onEditContact,
 }) => {
@@ -29,8 +29,6 @@ export const EditContact: React.FunctionComponent<EditContactProps> = ({
 			setCountry(data.countryCode);
 		}
 	}, [data]);
-
-	console.log('data', data);
 
 	const handleChange = (event: any) => {
 		const { name, value } = event.target;
@@ -63,7 +61,6 @@ export const EditContact: React.FunctionComponent<EditContactProps> = ({
 			countryCode: country,
 		};
 		onEditContact(updatedData);
-		//meter setTimeOut
 		navigate('/');
 	};
 
@@ -73,7 +70,6 @@ export const EditContact: React.FunctionComponent<EditContactProps> = ({
 		</option>
 	));
 
-	console.log('firstName', firstName);
 	return (
 		<div className="container-app">
 			<div className="container-form">
