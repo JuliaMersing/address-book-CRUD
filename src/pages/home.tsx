@@ -7,7 +7,7 @@ export const Home: React.FC = () => {
 
 	useEffect(() => {
 		storeContacts(contactList);
-	});
+	}, [contactList, storeContacts]);
 
 	return <ContactList contactsList={contactList} />;
 };
