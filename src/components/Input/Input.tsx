@@ -38,7 +38,7 @@ export const Input: React.FC<InputProps> = ({
 			<input
 				id={id}
 				type={type}
-				value={value}
+				defaultValue={value}
 				onChange={onChange}
 				className={className}
 				placeholder={placeholder}

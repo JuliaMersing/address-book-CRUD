@@ -92,7 +92,7 @@ export const AddContact: React.FC<AddContactProps> = ({ onSubmitForm }) => {
 		if (Object.keys(errors).length === 0) {
 			const data: Contact = {
 				...formData,
-				id: new Date().toJSON().toString(),
+				id: Date.now().toString(),
 			};
 			onSubmitForm(data);
 		} else {

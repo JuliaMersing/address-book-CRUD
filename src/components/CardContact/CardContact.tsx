@@ -1,21 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Contact } from '../type/type';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import countryList from 'country-list';
+import { useNavigate } from 'react-router-dom';
+import { ContactContext } from '../../Context/ContactContext';
 
 interface CardContactProps {
 	data: Contact;
-	onEdit: (contact: Contact) => void;
-	onDelete: (contact: Contact) => void;
 }
 
-export const CardContact: React.FC<CardContactProps> = ({
-	data,
-	onEdit,
-	onDelete,
-}) => {
+export const CardContact: React.FC<CardContactProps> = ({ data }) => {
 	const country = countryList.getName(data.countryCode);
+	const navigate = useNavigate();
+	const { deleteContact } = useContext(ContactContext);
 
 	return (
 		<div className="contained-card">
@@ -28,12 +26,12 @@ export const CardContact: React.FC<CardContactProps> = ({
 				<FontAwesomeIcon
 					icon={faEdit}
 					className="action-icon edit-icon text-indigo-600 mr-2"
-					onClick={() => onEdit(data)}
+					onClick={() => navigate(`/edit/${data.id}`)}
 				/>
 				<FontAwesomeIcon
 					icon={faTrash}
 					className="action-icon delete-icon text-indigo-600"
-					onClick={() => onDelete(data)}
+					onClick={() => deleteContact(data.id)}
 				/>
 			</div>
 		</div>

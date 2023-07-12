@@ -1,33 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Contact } from '../components/type/type';
 import { AddContact } from '../components/AddContact/AddContact';
-import { get, set } from '../components/services/localStorage';
 import { useNavigate } from 'react-router-dom';
+import { ContactContext } from '../Context/ContactContext';
 
-interface AddProps {
-	onAddContact: (data: Contact) => void;
-}
-
-export const Add: React.FC<AddProps> = ({ onAddContact }) => {
+export const Add: React.FC = () => {
 	const navigate = useNavigate();
-	useEffect(() => {
-		const contactStored = get('UpdateContactList', '[]');
-		if (contactStored) {
-			const parsedContacts = JSON.parse(contactStored);
-			setContactList(parsedContacts);
-		}
-	}, []);
-
-	const [contactList, setContactList] = useState([] as Contact[]);
-
-	const storedContacts = (listStorage: Contact[]) => {
-		setContactList(listStorage);
-		set('UpdateContactList', JSON.stringify(listStorage));
-	};
+	const { contactList, storeContacts } = useContext(ContactContext);
 
 	const handleAddContact = (data: Contact) => {
-		storedContacts([...contactList, data]);
-		onAddContact(data);
+		storeContacts([...contactList, data]);
 		navigate('/');
 	};
 

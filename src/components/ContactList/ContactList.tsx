@@ -8,35 +8,21 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface ContactListProps {
 	contactsList: Contact[];
-	onDelete: (data: Contact) => void;
-	onEdit: (data: Contact) => void;
-	onAdd?: () => void;
 }
 
-export const ContactList: React.FC<ContactListProps> = ({
-	contactsList,
-	onDelete,
-	onEdit,
-}) => (
+export const ContactList: React.FC<ContactListProps> = ({ contactsList }) => (
 	<div className="container-app">
 		<div className="container-form">
 			<Header heading="Address Book" />
 			<div className="flex items-center justify-center mb-2">
-				<Link to="/add" className="text-indigo-600 text-3xl mr-2">
+				<Link to="/add" className="container-link">
 					<FontAwesomeIcon icon={faPlus} />
-				</Link>
-				<Link to="/add" className="text-indigo-600 cursor-pointer">
 					Add contact
 				</Link>
 			</div>
 			<div className="container-card-list">
-				{contactsList.map((contact: Contact, index: number) => (
-					<CardContact
-						key={index}
-						data={contact}
-						onEdit={onEdit}
-						onDelete={onDelete}
-					/>
+				{contactsList.map((contact: Contact) => (
+					<CardContact key={contact.id} data={contact} />
 				))}
 			</div>
 		</div>
